@@ -9,17 +9,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String base = "http://192.168.100.13/android_codeigniter_crud/api/";
+    public static final String base_url = "http://192.168.100.13/android_codeigniter_crud/api/";
+
     private static Retrofit retrofit;
 
-    private static Retrofit getClient() {
+    public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(base)
+                    .baseUrl(base_url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return  retrofit;
+
+        return retrofit;
     }
 
 

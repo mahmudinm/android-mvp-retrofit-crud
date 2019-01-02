@@ -1,10 +1,13 @@
-package com.example.mahmudinm.androidmvpretrofit;
+package com.example.mahmudinm.androidmvpretrofit.activity.main;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.mahmudinm.androidmvpretrofit.R;
+import com.example.mahmudinm.androidmvpretrofit.activity.editor.EditorActivity;
 
 public class MainActivity extends AppCompatActivity {
 

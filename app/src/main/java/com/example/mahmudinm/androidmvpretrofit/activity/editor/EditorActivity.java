@@ -1,4 +1,4 @@
-package com.example.mahmudinm.androidmvpretrofit;
+package com.example.mahmudinm.androidmvpretrofit.activity.editor;
 
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
@@ -10,16 +10,21 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import okhttp3.ResponseBody;
+import com.example.mahmudinm.androidmvpretrofit.R;
+import com.example.mahmudinm.androidmvpretrofit.api.ApiClient;
+import com.example.mahmudinm.androidmvpretrofit.api.ApiInterface;
+import com.example.mahmudinm.androidmvpretrofit.model.Item;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditorActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity implements EditorView {
 
     EditText et_nama, et_harga;
     ProgressDialog progressDialog;
-    ApiInterface apiInterface;
+
+    EditorPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,8 @@ public class EditorActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
+
+        presenter = new EditorPresenter(this);
 
     }
 
@@ -52,7 +59,7 @@ public class EditorActivity extends AppCompatActivity {
                 } else if (harga.isEmpty()) {
                     et_harga.setError("Please enter a harga ");
                 } else {
-                    saveNote(nama, harga);
+                    presenter.saveNote(nama, harga);
                 }
                 return true;
             default:
@@ -60,26 +67,25 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
-    private void saveNote(String nama, String harga) {
+    @Override
+    public void showProgress() {
         progressDialog.show();
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<Item> saveItem = apiInterface.saveItem(nama, harga);
-        saveItem.enqueue(new Callback<Item>() {
-            @Override
-            public void onResponse(@NonNull Call<Item> call, Response<Item> response) {
-                progressDialog.dismiss();
-                Toast.makeText(EditorActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT)
-                        .show();
-                finish();
-            }
+    }
 
-            @Override
-            public void onFailure(@NonNull Call<Item> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(EditorActivity.this,
-                        t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void hideProgress() {
+        progressDialog.hide();
 
+    }
+
+    @Override
+    public void onAddSuccess(String status) {
+        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onAddError(String status) {
+        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
     }
 }

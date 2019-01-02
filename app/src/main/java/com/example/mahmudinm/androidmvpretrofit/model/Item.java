@@ -1,4 +1,4 @@
-package com.example.mahmudinm.androidmvpretrofit;
+package com.example.mahmudinm.androidmvpretrofit.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

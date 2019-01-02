@@ -1,6 +1,7 @@
-package com.example.mahmudinm.androidmvpretrofit;
+package com.example.mahmudinm.androidmvpretrofit.api;
 
-import okhttp3.ResponseBody;
+import com.example.mahmudinm.androidmvpretrofit.model.Item;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

@@ -58,9 +58,13 @@ public class MainActivity extends AppCompatActivity implements MainView{
             }
         });
 
-//        itemClickListener;
+        itemClickListener = new MainAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
 
-
+                Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
+            }
+        };
 
     }
 
@@ -85,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         adapter = new MainAdapter(this, items, itemClickListener);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
+
+        item = items;
     }
 
     @Override

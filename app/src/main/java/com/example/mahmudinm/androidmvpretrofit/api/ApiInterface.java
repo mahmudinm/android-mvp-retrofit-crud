@@ -2,9 +2,12 @@ package com.example.mahmudinm.androidmvpretrofit.api;
 
 import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -18,4 +21,6 @@ public interface ApiInterface {
     Call<Item> saveItem(@Field("nama") String nama,
                         @Field("harga") String harga);
 
+    @GET("item")
+    Call<List<Item>> getItem();
 }

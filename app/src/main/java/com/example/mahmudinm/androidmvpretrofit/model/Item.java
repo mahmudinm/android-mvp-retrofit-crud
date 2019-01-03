@@ -3,6 +3,7 @@ package com.example.mahmudinm.androidmvpretrofit.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,58 +13,36 @@ import java.util.List;
 public class Item {
 
     @Expose
-    @SerializedName("status") private String status;
+    @SerializedName("id") private String id;
     @Expose
-    @SerializedName("data") private List<Data> data;
+    @SerializedName("nama") private String nama;
+    @Expose
+    @SerializedName("harga") private String harga;
 
-    public String getStatus() {
-        return status;
+
+
+    public String getId() {
+        return id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<Data> getData() {
-        return data;
+    public String getNama() {
+        return nama;
     }
 
-    public void setData(List<Data> data) {
-        this.data = data;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
+    public String getHarga() {
+        return harga;
+    }
 
-    public class Data {
-        @Expose
-        @SerializedName("id") private int id;
-        @Expose
-        @SerializedName("nama") private String nama;
-        @Expose
-        @SerializedName("harga") private String harga;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getNama() {
-            return nama;
-        }
-
-        public void setNama(String nama) {
-            this.nama = nama;
-        }
-
-        public String getHarga() {
-            return harga;
-        }
-
-        public void setHarga(String harga) {
-            this.harga = harga;
-        }
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 
 }

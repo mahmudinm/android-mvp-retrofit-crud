@@ -1,5 +1,6 @@
 package com.example.mahmudinm.androidmvpretrofit.api;
 
+import com.example.mahmudinm.androidmvpretrofit.api.response.ItemResponse;
 import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
 import java.util.List;
@@ -18,9 +19,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("item")
-    Call<Item> saveItem(@Field("nama") String nama,
-                        @Field("harga") String harga);
+    Call<ItemResponse> saveItem(@Field("nama") String nama,
+                                @Field("harga") String harga);
 
     @GET("item")
-    Call<Item> getItem();
+    Call<ItemResponse> getItem();
 }

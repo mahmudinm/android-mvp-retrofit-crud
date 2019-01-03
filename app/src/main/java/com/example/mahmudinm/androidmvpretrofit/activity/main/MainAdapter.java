@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mahmudinm.androidmvpretrofit.R;
 import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,11 +42,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.tv_id.setText(item.getId());
         holder.tv_nama.setText(item.getNama());
         holder.tv_harga.setText(item.getHarga());
-
     }
 
     @Override
     public int getItemCount() {
+//        return 1;
         return items.size();
     }
 

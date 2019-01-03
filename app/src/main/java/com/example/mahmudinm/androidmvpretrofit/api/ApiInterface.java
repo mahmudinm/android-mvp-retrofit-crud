@@ -22,5 +22,5 @@ public interface ApiInterface {
                         @Field("harga") String harga);
 
     @GET("item")
-    Call<List<Item>> getItem();
+    Call<Item> getItem();
 }

@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -33,5 +34,7 @@ public interface ApiInterface {
                                   @Field("nama") String nama,
                                   @Field("harga") String harga);
 
-
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "item", hasBody = true)
+    Call<ItemResponse> deleteItem(@Field("id") String id);
 }

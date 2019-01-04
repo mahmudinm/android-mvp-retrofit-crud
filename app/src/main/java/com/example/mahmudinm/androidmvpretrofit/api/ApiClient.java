@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String base_url = "http://192.168.100.8/android_codeigniter_crud/api/";
+    public static final String base_url = "http://192.168.100.3/android_codeigniter_crud/api/";
 
     private static Retrofit retrofit;
 

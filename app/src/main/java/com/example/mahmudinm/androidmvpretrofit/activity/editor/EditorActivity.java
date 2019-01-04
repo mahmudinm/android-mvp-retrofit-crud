@@ -1,7 +1,9 @@
 package com.example.mahmudinm.androidmvpretrofit.activity.editor;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -100,7 +102,29 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
                 } else {
                     presenter.updateItem(id, nama, harga);
                 }
+                return true;
+            case R.id.delete:
 
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("Confirm");
+                alertDialog.setMessage("Are you sure ?");
+                alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        presenter.deleteItem(id);
+                    }
+                });
+                alertDialog.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -120,7 +144,7 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
     @Override
     public void onRequestSuccess(String status) {
         Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
-        setResult(RESULT_OKgi);
+        setResult(RESULT_OK);
         finish();
     }
 

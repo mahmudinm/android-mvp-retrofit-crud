@@ -38,13 +38,7 @@ public class MainPresenter {
             @Override
             public void onResponse(Call<ItemResponse> call, Response<ItemResponse> response) {
                 view.hideLoading();
-//                if (response.isSuccessful() && response.body() != null) {
-//                items = response.body().getItems();
                 view.onGetResult(response.body().getItems());
-                view.testData(response.body().getStatus());
-                Log.d("response", "onDataResponse: " + response.body().getItems());
-                Log.d("status message", "onResponse: " + response.body().getStatus());
-//                }
             }
 
             @Override

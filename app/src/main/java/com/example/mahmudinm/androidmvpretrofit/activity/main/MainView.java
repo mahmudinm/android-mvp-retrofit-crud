@@ -11,7 +11,6 @@ import java.util.List;
 public interface MainView {
     void showLoading();
     void hideLoading();
-    void testData(String status);
     void onGetResult(List<Item> items);
     void onErrorLoading(String status);
 }

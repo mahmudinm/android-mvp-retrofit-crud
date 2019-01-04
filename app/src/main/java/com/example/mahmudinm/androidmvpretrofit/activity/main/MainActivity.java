@@ -87,11 +87,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     @Override
-    public void testData(String status) {
-        Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showLoading() {
         swipeRefresh.setRefreshing(true);
     }

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, EditorActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, EditorActivity.class), 12);
             }
         });
 
@@ -61,11 +61,29 @@ public class MainActivity extends AppCompatActivity implements MainView{
         itemClickListener = new MainAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Item itemData = item.get(position);
+                String id = itemData.getId();
+                String nama = itemData.getNama();
+                String harga = itemData.getHarga();
 
-                Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("nama", nama);
+                intent.putExtra("harga", harga);
+                startActivityForResult(intent, 11);
             }
         };
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 11 && resultCode == RESULT_OK) {
+            presenter.getData();
+        } else if (requestCode == 12 && resultCode == RESULT_OK) {
+            presenter.getData();
+        }
     }
 
     @Override

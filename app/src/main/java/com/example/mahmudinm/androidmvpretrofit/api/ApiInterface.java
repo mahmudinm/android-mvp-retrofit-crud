@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * Created by Mahmudinm on 02/01/2019.
@@ -17,11 +18,20 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
+    @GET("item")
+    Call<ItemResponse> getItem();
+
     @FormUrlEncoded
     @POST("item")
     Call<ItemResponse> saveItem(@Field("nama") String nama,
                                 @Field("harga") String harga);
 
-    @GET("item")
-    Call<ItemResponse> getItem();
+
+    @FormUrlEncoded
+    @PUT("item")
+    Call<ItemResponse> updateItem(@Field("id") String id,
+                                  @Field("nama") String nama,
+                                  @Field("harga") String harga);
+
+
 }

@@ -1,12 +1,10 @@
 package com.example.mahmudinm.androidmvpretrofit.activity.editor;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.example.mahmudinm.androidmvpretrofit.api.ApiClient;
 import com.example.mahmudinm.androidmvpretrofit.api.ApiInterface;
 import com.example.mahmudinm.androidmvpretrofit.api.response.ItemResponse;
-import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,25 +22,54 @@ public class EditorPresenter {
         this.view = view;
     }
 
-    void saveNote(String nama, String harga) {
+    void saveItem(String nama, String harga) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ItemResponse> saveItem = apiInterface.saveItem(nama, harga);
         saveItem.enqueue(new Callback<ItemResponse>() {
             @Override
-            public void onResponse(@NonNull Call<ItemResponse> call, Response<ItemResponse> response) {
+            public void onResponse(@NonNull Call<ItemResponse> call, @NonNull Response<ItemResponse>
+                    response) {
                 view.hideProgress();
                 if (response.body().getStatus().equals("success")) {
-                    view.onAddSuccess(response.body().getStatus());
+                    view.onRequestSuccess(response.body().getStatus());
                 } else {
-                    view.onAddError(response.body().getStatus());
+                    view.onRequestError(response.body().getStatus());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ItemResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<ItemResponse> call, @NonNull Throwable t) {
                 view.hideProgress();
-                view.onAddError(t.getLocalizedMessage());
+                view.onRequestError(t.getLocalizedMessage());
+            }
+        });
+
+    }
+
+    void updateItem(String id, String nama, String harga) {
+        view.showProgress();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ItemResponse> updateItem = apiInterface.updateItem(id, nama, harga);
+        updateItem.enqueue(new Callback<ItemResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ItemResponse> call,@NonNull
+                        Response<ItemResponse> response) {
+                view.hideProgress();
+                if (response.isSuccessful() && response.body() != null) {
+                    String status = response.body().getStatus();
+                    if (status.equals("success")) {
+                        view.onRequestSuccess(status);
+                    } else {
+                        view.onRequestError(status);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ItemResponse> call,@NonNull Throwable t) {
+                view.hideProgress();
+                view.onRequestError(t.getLocalizedMessage());
             }
         });
 

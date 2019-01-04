@@ -8,7 +8,7 @@ public interface EditorView {
 
     void showProgress();
     void hideProgress();
-    void onAddSuccess(String status);
-    void onAddError(String status);
+    void onRequestSuccess(String status);
+    void onRequestError(String status);
 
 }

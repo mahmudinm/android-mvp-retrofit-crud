@@ -19,8 +19,6 @@ public class Item {
     @Expose
     @SerializedName("harga") private String harga;
 
-
-
     public String getId() {
         return id;
     }

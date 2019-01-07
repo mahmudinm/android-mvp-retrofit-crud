@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import rx.Observable;
 
 /**
  * Created by Mahmudinm on 02/01/2019.
@@ -20,7 +21,8 @@ import retrofit2.http.PUT;
 public interface ApiInterface {
 
     @GET("item")
-    Call<ItemResponse> getItem();
+//    Call<ItemResponse> getItem();
+    Observable<ItemResponse> getItem();
 
     @FormUrlEncoded
     @POST("item")

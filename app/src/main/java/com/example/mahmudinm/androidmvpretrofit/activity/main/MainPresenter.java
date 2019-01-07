@@ -15,16 +15,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -36,9 +30,12 @@ public class MainPresenter {
     private MainView view;
     List<Item> items = new ArrayList<>();
     ApiInterface apiInterface;
+    private CompositeDisposable disposable;
 
-    public MainPresenter(MainView view, ItemRepository itemRepository) {
+    public MainPresenter(MainView view) {
         this.view = view;
+        disposable = new CompositeDisposable();
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
     public void getData() {
@@ -61,7 +58,30 @@ public class MainPresenter {
 //        });
 
 
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        disposable.add(
+          apiInterface.getItem()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<ItemResponse>() {
+                    @Override
+                    public void onNext(ItemResponse itemResponse) {
+                        view.hideLoading();
+                        view.onGetResult(itemResponse.getItems());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.hideLoading();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        view.hideLoading();
+
+                    }
+                })
+        );
     }
 
 

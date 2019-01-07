@@ -5,6 +5,7 @@ import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -12,7 +13,6 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import rx.Observable;
 
 /**
  * Created by Mahmudinm on 02/01/2019.

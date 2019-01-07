@@ -5,6 +5,7 @@ import com.example.mahmudinm.androidmvpretrofit.model.Item;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -26,15 +27,17 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("item")
-    Call<ItemResponse> saveItem(@Field("nama") String nama,
+//    Call<ItemResponse> saveItem(@Field("nama") String nama,
+//                                @Field("harga") String harga);
+    Observable<ItemResponse> saveItem(@Field("nama") String nama,
                                 @Field("harga") String harga);
 
 
     @FormUrlEncoded
     @PUT("item")
-    Call<ItemResponse> updateItem(@Field("id") String id,
-                                  @Field("nama") String nama,
-                                  @Field("harga") String harga);
+    Completable updateItem(@Field("id") String id,
+                                         @Field("nama") String nama,
+                                         @Field("harga") String harga);
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "item", hasBody = true)

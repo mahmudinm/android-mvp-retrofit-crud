@@ -134,30 +134,49 @@ public class EditorPresenter {
 
     void deleteItem(String id) {
         view.showProgress();
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ItemResponse> deleteItem = apiInterface.deleteItem(id);
-        deleteItem.enqueue(new Callback<ItemResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ItemResponse> call, @NonNull Response<ItemResponse> response) {
-                view.hideProgress();
-                if (response.isSuccessful() && response.body() != null) {
-                    String status = response.body().getStatus();
-                    if (status.equals("success")) {
-                        view.onRequestSuccess(response.body().getStatus());
-                    } else {
-                        view.onRequestError(response.body().getStatus());
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ItemResponse> deleteItem = apiInterface.deleteItem(id);
+//        deleteItem.enqueue(new Callback<ItemResponse>() {
+//            @Override
+//            public void onResponse(@NonNull Call<ItemResponse> call, @NonNull Response<ItemResponse> response) {
+//                view.hideProgress();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    String status = response.body().getStatus();
+//                    if (status.equals("success")) {
+//                        view.onRequestSuccess(response.body().getStatus());
+//                    } else {
+//                        view.onRequestError(response.body().getStatus());
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<ItemResponse> call, @NonNull Throwable t) {
+//                view.hideProgress();
+//                view.onRequestError(t.getLocalizedMessage());
+//
+//            }
+//        });
+        disposable.add(
+                apiInterface.deleteItem(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableCompletableObserver(){
+                    @Override
+                    public void onComplete() {
+                        view.hideProgress();
+                        view.onRequestSuccess("Berhasil hapus data");
                     }
 
-                }
-            }
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        view.hideProgress();
+                        view.onRequestSuccess("Gagal hapus data");
 
-            @Override
-            public void onFailure(@NonNull Call<ItemResponse> call, @NonNull Throwable t) {
-                view.hideProgress();
-                view.onRequestError(t.getLocalizedMessage());
-
-            }
-        });
+                    }
+                })
+        );
     }
 
 }

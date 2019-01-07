@@ -41,5 +41,5 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "item", hasBody = true)
-    Call<ItemResponse> deleteItem(@Field("id") String id);
+    Completable deleteItem(@Field("id") String id);
 }

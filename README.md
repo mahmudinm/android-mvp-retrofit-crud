@@ -10,3 +10,6 @@ https://www.codepolitan.com/rest-api-client-sederhana-dengan-retrofit-pada-andro
 https://github.com/chriskacerguis/codeigniter-restserver
 
 https://github.com/dodistyo/ci-rest-jwt
+
+# Untuk versi dengan rxjava (For rxjava version)
+https://github.com/mahmudinm/android-mvp-retrofit-crud/tree/rxjava
